@@ -16,6 +16,10 @@
       private JButton withdrawOptionButton;
       private JButton doneOptionButton;
       private JComboBox accountBox;
+      private final static int NBUTTONS = 12;
+      private String labels[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", " ", "0", " "};
+      private String acctNumbers[] = {"1000", "2000", "3000", "4000", "5000"};
+      private JButton buttons[];
               
        public ATMGUI(String title) 
       {
@@ -72,28 +76,22 @@
          JPanel centerPanel;
          JPanel numbersPanel;
          JPanel optionsPanel;
-                  
+         
+         buttons = new JButton[NBUTTONS];         
          centerPanel = new JPanel();
          numbersPanel = new JPanel();
          optionsPanel = new JPanel();
          
          numbersButton = new JButton[10];
-         for (int i=0; i<10; i++)
+         for (int i=0; i < buttons.length; i++)
          {
-            numbersButton[i] = new JButton(Integer.toString(i));
+            buttons[i] = new JButton(labels[i]);
+            buttons[i].addActionListener(this);
+            numbersPanel.add(buttons[i]);
          }
-         numbersPanel.add(numbersButton[1]);
-         numbersPanel.add(numbersButton[2]);
-         numbersPanel.add(numbersButton[3]);
-         numbersPanel.add(numbersButton[4]);
-         numbersPanel.add(numbersButton[5]);
-         numbersPanel.add(numbersButton[6]);
-         numbersPanel.add(numbersButton[7]);
-         numbersPanel.add(numbersButton[8]);
-         numbersPanel.add(numbersButton[9]);
+        
          numbersPanel.add(Box.createRigidArea(new Dimension(5,0)));
-         numbersPanel.add(numbersButton[0]);
-         numbersPanel.setLayout(new GridLayout(4,3));
+         numbersPanel.setLayout(new GridLayout(5,4));
          
          enterOptionButton = new JButton("Enter");
          balanceOptionButton = new JButton("Balance");
@@ -102,7 +100,7 @@
                   
                   
          optionsPanel.add(enterOptionButton);
-         optionsPanel.add(Box.createRigidArea(new Dimension(,5)));
+         optionsPanel.add(Box.createRigidArea(new Dimension(0,5)));
          optionsPanel.add(balanceOptionButton);
          optionsPanel.add(Box.createRigidArea(new Dimension(0,5)));
          optionsPanel.add(withdrawOptionButton);
@@ -125,7 +123,8 @@
       
          southPanel = new JPanel();   
          accountLabel = new JLabel("Account Number: ");  // lookup these
-         accountBox = new JComboBox();
+         accountBox = new JComboBox(acctNumbers);
+         accountBox.setMaximumRowCount(3);
          
          southPanel.add(accountLabel);
          southPanel.add(accountBox);                            
